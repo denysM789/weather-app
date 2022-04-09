@@ -33,17 +33,13 @@ class App extends React.Component {
   };
 
   render() {
-    //console.log(this.state.cities);
     return (
+      <StyledWrapper>
       <Router>
-        <StyledWrapper>
           <SearchLocation handleSubmit={this.handleSubmit} />
           <div>
             <StyledContainer>
-              <div>
-              <Home />
-              </div>
-              <StyledLink to={`/`}>Get Current Location</StyledLink>
+              <StyledLink to={`/`}>Back to Current Location</StyledLink>
               <div>
                 <ul>
                   {this.state.cities.map((city) => (
@@ -64,8 +60,8 @@ class App extends React.Component {
             <Route exact path="/city/:cityId" component={City}></Route>
           </Switch>
         </div>
-        </StyledWrapper>
       </Router>
+      </StyledWrapper>
     );
   }
 }
