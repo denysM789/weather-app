@@ -14,7 +14,6 @@ const StyledLink = styled(Link)`
 
 const StyledWrapper = styled.div`
   width: 100vh;
-  height: 100vh;
   background: #404040;
   border-radius: 20px;
   text-align: center;
@@ -42,8 +41,9 @@ class App extends React.Component {
           <div>
             <StyledContainer>
               <div>
-                <Home />
+              <Home />
               </div>
+              <StyledLink to={`/`}>Get Current Location</StyledLink>
               <div>
                 <ul>
                   {this.state.cities.map((city) => (
@@ -55,7 +55,7 @@ class App extends React.Component {
               </div>
             </StyledContainer>
           </div>
-        </StyledWrapper>
+        
         <div>
           {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
@@ -64,6 +64,7 @@ class App extends React.Component {
             <Route exact path="/city/:cityId" component={City}></Route>
           </Switch>
         </div>
+        </StyledWrapper>
       </Router>
     );
   }

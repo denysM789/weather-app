@@ -1,13 +1,17 @@
 import React from "react";
 import axios from "axios";
 
+const APIKey = "02abb7c62f4761cdce671150fdc67fed";
+
 class Home extends React.Component {
   state = {
     geolocation: {
       latitude: null,
       longitude: null
     },
-    user: {},
+    city: {},
+    temp: "",
+    wind: "",
     isLoading: false
   };
 
@@ -17,10 +21,13 @@ class Home extends React.Component {
         try {
           this.setState({ isLoading: true });
           const { data: city } = await axios(
-            `https:/api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_API_KEY}`
+            `https:/api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${APIKey}&units=metric`
           );
           this.setState({
             city,
+            temp: city.main.temp,
+            feelsLike: city.main.feels_like,
+            description: city.weather[0].description,
             geolocation: { latitude, longitude },
             isLoading: false
           });
@@ -35,14 +42,14 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
-        <div></div>
+      <div key={this.state.city.id}>
+     {!this.state.isLoading && <h1>Current Location: {this.state.city.name}</h1>}
+     {!this.state.isLoading && <h3>Temperature: {Math.ceil(this.state.temp)} °C</h3>}
+     {!this.state.isLoading && <h3>Feels like: {Math.ceil(this.state.feelsLike)} °C</h3>}
+     {!this.state.isLoading && <h3>{this.state.description}</h3>}
       </div>
     );
   }
 }
 
 export default Home;
-
-// Query
-// link.com? key=value & key2=value2 & key3=value3
